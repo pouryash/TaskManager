@@ -121,6 +121,9 @@ dependencies {
     testImplementation "org.koin:koin-test:$koin_version"
     androidTestImplementation "org.koin:koin-test:$koin_version"
 
+    //datastore
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha05"
+
 
     //image loading library
     implementation("io.coil-kt:coil:1.1.0")
