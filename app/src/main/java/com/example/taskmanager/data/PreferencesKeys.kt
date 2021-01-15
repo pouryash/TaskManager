@@ -4,6 +4,6 @@ import androidx.datastore.preferences.core.preferencesKey
 
 object PreferencesKeys {
 
-    val AUTHORIZATION = preferencesKey<String>("AUTHORIZATION")
+    val USERINFO = preferencesKey<String>("USERINFO")
 
 }

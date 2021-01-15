@@ -1,13 +1,11 @@
 //package com.example.taskmanager.di
 //
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.util.Log
-import com.example.taskmanager.AppPreference
+import com.example.taskmanager.data.AppPreference
 import com.example.taskmanager.data.PreferencesKeys
+import com.example.taskmanager.data.models.UserModel
+import com.example.taskmanager.utils.CommonUtils.isNetworkConnected
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -18,7 +16,6 @@ import java.net.HttpURLConnection
 import java.net.InetSocketAddress
 import java.net.Socket
 import java.net.SocketTimeoutException
-import kotlin.coroutines.CoroutineContext
 
 private const val AUTHORIZATION_TAG = "Authorization"
 
@@ -35,7 +32,7 @@ class HeaderCheckInterceptor(val appPreference: AppPreference) : Interceptor {
         val response = chain.proceed(chain.request())
         if (response.code() == HttpURLConnection.HTTP_UNAUTHORIZED) {
             CoroutineScope(Dispatchers.IO + Job()).launch {
-                appPreference.save(PreferencesKeys.AUTHORIZATION, "")
+                appPreference.save(PreferencesKeys.USERINFO, UserModel())
             }
         }
         return response
@@ -45,15 +42,17 @@ class HeaderCheckInterceptor(val appPreference: AppPreference) : Interceptor {
 class AuthHeaderInterceptor(val appPreference: AppPreference) : Interceptor {
     lateinit var token: String
     val job = CoroutineScope(Dispatchers.IO + Job()).launch {
-        token = appPreference.read(PreferencesKeys.AUTHORIZATION).first()
+        appPreference.readUserModel(PreferencesKeys.USERINFO).first()?.let {
+            token = (it as UserModel).token
+        }
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
         return if (this::token.isInitialized && token.isNotEmpty()) {
-            val newReq = chain.request().newBuilder().addHeader(AUTHORIZATION_TAG, "Bearer $token")
+            val newReq = chain.request().newBuilder().addHeader(AUTHORIZATION_TAG, token)
                 .build()
-            Log.d("BearerJWT", "$token")
             chain.proceed(newReq)
+
         } else
             chain.proceed(chain.request())
     }
@@ -62,33 +61,13 @@ class AuthHeaderInterceptor(val appPreference: AppPreference) : Interceptor {
 
 class ConnectivityInterceptor (private val context: Context) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        return if (!isConnectionOn()) {
+        return if (!isNetworkConnected(context)) {
             throw NoConnectivityException()
         } else if (!isInternetAvailable()) {
             throw NoInternetException()
         } else {
             timeoutIntercept(chain)
             //chain.proceed(chain.request())
-        }
-    }
-
-    private fun isConnectionOn(): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            val network = connectivityManager.activeNetwork
-            val connection = connectivityManager.getNetworkCapabilities(network)
-            return connection != null && (
-                    connection.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                            connection.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR))
-
-        } else {
-            val activeNetwork = connectivityManager.activeNetworkInfo
-            if (activeNetwork != null) {
-                return (activeNetwork.type == ConnectivityManager.TYPE_WIFI ||
-                        activeNetwork.type == ConnectivityManager.TYPE_MOBILE)
-            }
-            return false
         }
     }
 

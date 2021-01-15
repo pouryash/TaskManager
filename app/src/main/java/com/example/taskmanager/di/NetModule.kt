@@ -4,7 +4,7 @@ import AuthHeaderInterceptor
 import ConnectivityInterceptor
 import HeaderCheckInterceptor
 import android.content.Context
-import com.example.taskmanager.AppPreference
+import com.example.taskmanager.data.AppPreference
 import com.example.taskmanager.BuildConfig
 import com.example.taskmanager.data.api.WebServices
 import com.example.taskmanager.utils.ConstUtils
@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit
 
 const val BASE_URL = "BASE_URL"
 private const val DI_TAG = "DI_TAG"
-private const val DI_TAG_WITH_AUTH = "DI_TAG_WITH_AUTH"
 
 
 val netModule = module {
@@ -40,7 +39,7 @@ val netModule = module {
         )
     }
 
-    single<WebServices> { createRetrofitService(get(named(DI_TAG_WITH_AUTH))) }
+    single<WebServices> { createRetrofitService(get(named(DI_TAG))) }
 
 }
 

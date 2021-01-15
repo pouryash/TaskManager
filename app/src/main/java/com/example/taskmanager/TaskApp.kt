@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import com.example.taskmanager.di.appModule
 import com.example.taskmanager.di.netModule
+import com.example.taskmanager.di.repoModule
 import org.koin.android.ext.koin.androidContext
 
 class TaskApp: MultiDexApplication() {
@@ -13,18 +14,20 @@ class TaskApp: MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
 
+        init()
         startKoin()
     }
 
-    fun startKoin() {
+    private fun init(){
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+    }
+
+    private fun startKoin() {
         org.koin.core.context.startKoin {
             androidContext(this@TaskApp)
 
-            modules(listOf(netModule, appModule, androidContextModule))
+            modules(listOf(netModule, repoModule, appModule, androidContextModule))
         }
-
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
-
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.taskmanager
+package com.example.taskmanager.data
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -6,6 +6,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.createDataStore
+import com.example.taskmanager.data.models.UserModel
+import com.example.taskmanager.utils.CommonUtils
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -22,6 +24,12 @@ class AppPreference(context: Context) {
         }
     }
 
+    suspend fun<T> save(key: Preferences.Key<String>, value: T) {
+        dataStore.edit { preferences ->
+            preferences[key] = CommonUtils.convertModelToJsonString(value)
+        }
+    }
+
     suspend fun read(key: Preferences.Key<String>): Flow<String> = dataStore.data
             .catch { exception ->
                 if (exception is IOException) {
@@ -32,6 +40,17 @@ class AppPreference(context: Context) {
             }.map { preferences ->
                 preferences[key]?: ""
             }
+
+    suspend fun readUserModel(key: Preferences.Key<String>): Flow<Any> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }.map { preferences ->
+           CommonUtils.convertJsonStringToModel<UserModel>(preferences[key] ?: "")
+        }
 
 
 }

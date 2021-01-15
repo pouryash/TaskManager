@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">TaskManager</string>
+    <string name="app_sloan">Manage Your Tasks Easy</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">login</string>
+    <string name="btn_link_to_register">Not a member? Sign up now</string>
+    <string name="userName">User Name</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="btn_link_to_login">Already registred! Login Me</string>
+    <string name="data_not_exist">No Data Available</string>
+
+    //validation
+    <string name="enter_all_filed">enter all filed</string>
+    <string name="email_not_valid">email not valid</string>
+    <string name="password_not_valid">password not valid</string>
+    <string name="this_field_is_required">this field is required</string>
 </resources>
