@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
+        android:background="@drawable/bottom_shape_redius"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_profile_avatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3"
+            app:srcCompat="@drawable/ic_avatar" />
+
+        <TextView
+            android:id="@+id/tv_profile_name"
+            style="@style/Text.Medium_White"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/standard_margin_medium"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_profile_avatar"
+            android:textSize="@dimen/dimen_16"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:minLines="1"
+            android:singleLine="true"
+            tools:text="pourya78.sh" />
+
+        <ImageView
+            android:id="@+id/iv_profile_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_margin_small"
+            android:padding="@dimen/standard_margin_medium"
+            app:tint="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_back_24" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_margin_x"
+        android:layout_marginEnd="@dimen/standard_margin_x"
+        bind:cardBackgroundColor="@color/gray300"
+        android:layout_marginTop="@dimen/dimen_32"
+        bind:cardCornerRadius="@dimen/standard_margin_x"
+        bind:cardElevation="@dimen/standard_margin_medium"
+        bind:layout_constraintEnd_toEndOf="parent"
+        bind:layout_constraintStart_toStartOf="parent"
+        bind:layout_constraintTop_toBottomOf="@id/guideline">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_edit_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Text.Medium_Black"
+                android:layout_marginStart="@dimen/standard_margin_x"
+                android:layout_marginTop="@dimen/standard_margin_x"
+                android:layout_marginEnd="@dimen/standard_margin_medium"
+                android:layout_marginBottom="@dimen/standard_margin_x"
+                android:text="@string/edit_profile"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_15"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/tv_edit_profile"
+                android:layout_toEndOf="@id/tv_edit_profile"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_15"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_editName_profile"
+                style="@style/Text.Authentication_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_edit_profile"
+                android:layout_marginTop="@dimen/standard_margin_medium"
+                android:background="@drawable/et_background_white"
+                android:drawableStart="@drawable/ic_person_24"
+                android:hint="@string/full_name"
+                android:textSize="@dimen/sp_16"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray500"
+                bind:drawableTint="@color/gray400" />
+
+            <EditText
+                android:id="@+id/et_editPassword_profile"
+                style="@style/Text.Authentication_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_15"
+                android:layout_below="@id/et_editName_profile"
+                android:background="@drawable/et_background_white"
+                android:drawableStart="@drawable/ic_lock_24"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:text="@{userViewModel.email}"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray500" />
+
+            <EditText
+                android:id="@+id/et_editemail_profile"
+                style="@style/Text.Authentication_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_15"
+                android:layout_below="@id/et_editPassword_profile"
+                android:background="@drawable/et_background_white"
+                android:drawableStart="@drawable/ic_email_24"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:text="@{userViewModel.email}"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray500" />
+
+            <Button
+                android:id="@+id/btn_save_profile"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_editemail_profile"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/standard_margin_x"
+                android:layout_marginTop="@dimen/standard_margin_medium"
+                android:layout_marginEnd="@dimen/standard_margin_x"
+                android:layout_marginBottom="@dimen/standard_margin_medium"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                bind:backgroundTint="@color/accent"
+                bind:drawableTint="@color/white" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_logout"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_margin_x"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="@dimen/standard_margin_x"
+        android:layout_marginBottom="@dimen/standard_margin_x"
+        android:background="@drawable/et_background_white"
+        android:text="@string/log_out"
+        android:textAllCaps="false"
+        app:icon="@drawable/ic_exit_app_24"
+        app:iconTint="@color/colorRed"
+        app:iconGravity="textEnd"
+        app:backgroundTint="@color/gray300"
+        android:textColor="@color/colorRed"
+        bind:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

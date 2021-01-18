@@ -10,7 +10,7 @@ import com.example.taskmanager.presentation.CustomSnackbar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.layout_state_handler.view.*
 
-private const val UNKOWN_ERROR = "خطای ناشناس"
+private const val UNKnOWN_ERROR = "Unknown Error"
 
 /** Class that renders different state in a uniform way across the application.
  * @param rootView rootView that is used for showing snakcbars.
@@ -165,8 +165,8 @@ class SnackbarErrorRendererRefactor<T>(
         snackbar?.dismiss()
     }
 
-    private fun showRetryErrorMsg(msg: String? = UNKOWN_ERROR, retryBlock: (() -> Unit)) {
-        snackbar = CustomSnackbar.make(rootView, msg ?: UNKOWN_ERROR) {
+    private fun showRetryErrorMsg(msg: String? = UNKnOWN_ERROR, retryBlock: (() -> Unit)) {
+        snackbar = CustomSnackbar.make(rootView, msg ?: UNKnOWN_ERROR) {
             retryBlock.invoke()
         }
         snackbar?.show()

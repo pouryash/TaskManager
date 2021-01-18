@@ -4,31 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.example.taskmanager.R
 import com.example.taskmanager.data.models.UserModel
 import com.example.taskmanager.presentation.BaseFragment
 import com.example.taskmanager.presentation.CustomSnackbar
 import com.example.taskmanager.presentation.authentication.AuthenticationViewModel
-import com.example.taskmanager.presentation.authentication.MainActivity
-import com.example.taskmanager.presentation.authentication.login.LoginFragment
 import com.example.taskmanager.utils.Status
-import com.example.taskmanager.utils.ValidationUtils
 import com.example.taskmanager.utils.ValidationUtils.areInputsFilled
 import com.example.taskmanager.utils.ValidationUtils.isValidEmail
 import com.example.taskmanager.utils.ValidationUtils.isValidPassword
-import com.example.taskmanager.utils.launchActivity
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.fragment_register.view.*
 import kotlinx.android.synthetic.main.splash_screeen.*
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class RegisterFragment : BaseFragment<AuthenticationViewModel>() {

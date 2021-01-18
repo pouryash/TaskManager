@@ -1,22 +1,16 @@
 package com.example.taskmanager.presentation.authentication.login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.example.taskmanager.R
 import com.example.taskmanager.data.models.UserModel
 import com.example.taskmanager.presentation.BaseFragment
 import com.example.taskmanager.presentation.CustomSnackbar
 import com.example.taskmanager.presentation.authentication.AuthenticationViewModel
-import com.example.taskmanager.presentation.authentication.MainActivity
 import com.example.taskmanager.utils.Status
 import com.example.taskmanager.utils.ValidationUtils
-import com.example.taskmanager.utils.launchActivity
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import kotlinx.android.synthetic.main.fragment_register.*

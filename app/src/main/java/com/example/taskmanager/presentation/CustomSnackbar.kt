@@ -4,7 +4,7 @@ import android.os.Build
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 
-const val RETRY = "تلاش مجدد"
+const val RETRY = "retry"
 object CustomSnackbar {
     /**
      * Creates Definite Snackbar

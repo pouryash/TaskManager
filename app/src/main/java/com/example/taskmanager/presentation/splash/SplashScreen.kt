@@ -1,4 +1,4 @@
-package com.example.taskmanager.presentation
+package com.example.taskmanager.presentation.splash
 
 import android.os.Bundle
 import android.os.Handler
@@ -9,12 +9,9 @@ import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.transition.doOnEnd
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.example.taskmanager.R
 import com.example.taskmanager.presentation.authentication.AuthenticationActivity
-import com.example.taskmanager.presentation.authentication.MainActivity
-import com.example.taskmanager.presentation.authentication.register.RegisterFragment
+import com.example.taskmanager.presentation.dashboard.home.DashboardActivity
 import com.example.taskmanager.utils.launchActivity
 import kotlinx.android.synthetic.main.splash_screeen.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,7 +29,7 @@ class SplashScreen : AppCompatActivity() {
 
             Handler(Looper.getMainLooper()).postDelayed(kotlinx.coroutines.Runnable {
                 if (it.isNotEmpty()) {
-                    launchActivity<MainActivity>()
+                    launchActivity<DashboardActivity>()
                     finish()
                     return@Runnable
                 }

@@ -17,7 +17,7 @@
             app:destination="@id/registerFragment" />
         <action
             android:id="@+id/action_loginFragment_to_mainActivity"
-            app:destination="@id/mainActivity" />
+            app:destination="@id/dashboadrdActivity" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -31,11 +31,11 @@
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_registerFragment_to_mainActivity"
-            app:destination="@id/mainActivity" />
+            app:destination="@id/dashboadrdActivity" />
     </fragment>
     <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.taskmanager.presentation.authentication.MainActivity"
+        android:id="@+id/dashboadrdActivity"
+        android:name="com.example.taskmanager.presentation.dashboard.home.DashboardActivity"
         android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+        tools:layout="@layout/activity_dashboard" />
 </navigation>

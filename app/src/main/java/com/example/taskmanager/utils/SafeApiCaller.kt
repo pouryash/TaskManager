@@ -23,7 +23,7 @@ class SafeApiCaller {
                 ResultWrapper.Success(apiCall.invoke())
             } catch (throwable: Throwable) {
                 when (throwable) {
-                    is IOException -> ResultWrapper.GenericError("خطای نامشخص رخ داده است.")
+                    is IOException -> ResultWrapper.GenericError("Unknown error occurred")
                     is HttpException -> {
                         val code = throwable.code()
                         val errorResponse = convertErrorBody(throwable)
@@ -34,7 +34,7 @@ class SafeApiCaller {
                         ResultWrapper.NetworkError(
                             -1, ErrorResponse(
                                 -1,
-                                "خطای نامشخص اتفاق افتاده است."
+                                "Unknown error occurred"
                             )
                         )
                     }

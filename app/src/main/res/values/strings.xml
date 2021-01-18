@@ -9,10 +9,23 @@
     <string name="sign_up">Sign Up</string>
     <string name="btn_link_to_login">Already registred! Login Me</string>
     <string name="data_not_exist">No Data Available</string>
+    <string name="filter">filter list</string>
+    <string name="user_welcome">hi, </string>
+
+    //task
+    <string name="create_date">create date: %s</string>
+    <string name="reporter">reporter: %s</string>
+
 
     //validation
     <string name="enter_all_filed">enter all filed</string>
     <string name="email_not_valid">email not valid</string>
     <string name="password_not_valid">password not valid</string>
     <string name="this_field_is_required">this field is required</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="full_name">User Name</string>
+    <string name="save">Save</string>
+    <string name="log_out">Log Out</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

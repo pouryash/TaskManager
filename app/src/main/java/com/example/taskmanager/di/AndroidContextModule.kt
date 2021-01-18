@@ -41,13 +41,22 @@ class HeaderCheckInterceptor(val appPreference: AppPreference) : Interceptor {
 
 class AuthHeaderInterceptor(val appPreference: AppPreference) : Interceptor {
     lateinit var token: String
-    val job = CoroutineScope(Dispatchers.IO + Job()).launch {
-        appPreference.readUserModel(PreferencesKeys.USERINFO).first()?.let {
-            token = (it as UserModel).token
-        }
-    }
+
 
     override fun intercept(chain: Interceptor.Chain): Response {
+        token = runBlocking {
+            appPreference.readUserModel(PreferencesKeys.USERINFO).first()?.let {
+                return@runBlocking (it as UserModel).token
+            }
+            return@runBlocking ""
+        }
+
+//        val job = CoroutineScope(Dispatchers.IO + Job()).launch {
+//            appPreference.readUserModel(PreferencesKeys.USERINFO).first()?.let {
+//                token = (it as UserModel).token
+//            }
+//        }
+
         return if (this::token.isInitialized && token.isNotEmpty()) {
             val newReq = chain.request().newBuilder().addHeader(AUTHORIZATION_TAG, token)
                 .build()
