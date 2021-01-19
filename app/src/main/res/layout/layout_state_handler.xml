@@ -44,5 +44,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/iv_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/standard_margin_medium"
+            android:visibility="invisible"
+            app:layout_constraintTop_toBottomOf="@id/tv_state_empty"
+            app:srcCompat="@drawable/ic_refresh_24"
+            app:tint="@color/primary" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.remove
 import androidx.datastore.preferences.createDataStore
 import com.example.taskmanager.data.models.UserModel
 import com.example.taskmanager.utils.CommonUtils
@@ -27,6 +28,12 @@ class AppPreference(context: Context) {
     suspend fun<T> save(key: Preferences.Key<String>, value: T) {
         dataStore.edit { preferences ->
             preferences[key] = CommonUtils.convertModelToJsonString(value)
+        }
+    }
+
+    suspend fun remove(key: Preferences.Key<String>) {
+        dataStore.edit { preferences ->
+            preferences.remove(key)
         }
     }
 

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
@@ -50,7 +51,6 @@ class DashboardActivity : BaseActivity<DashboardViewModel>() {
 
         iv_menu_dashboard.setOnClickListener{
             if (menu_items.visibility == View.INVISIBLE) {
-                menu_items.visibility = View.VISIBLE
                 val animate = TranslateAnimation(
                     0f,  // fromXDelta
                     0f,  // toXDelta
@@ -60,6 +60,18 @@ class DashboardActivity : BaseActivity<DashboardViewModel>() {
 
                 animate.duration = 500
                 animate.fillAfter = true
+                animate.setAnimationListener(object : Animation.AnimationListener {
+                    override fun onAnimationStart(p0: Animation?) {
+                    }
+
+                    override fun onAnimationEnd(p0: Animation?) {
+                        menu_items.visibility = View.VISIBLE
+                    }
+
+                    override fun onAnimationRepeat(p0: Animation?) {
+                    }
+
+                })
                 coordinatorLayout.startAnimation(animate)
             }else{
                 menu_items.visibility = View.INVISIBLE
@@ -81,7 +93,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>() {
         }
 
         menu_item_filetr.setOnClickListener {
-            launchActivity<ProfileActivity>()
+
         }
     }
 

@@ -6,6 +6,7 @@ import com.example.taskmanager.data.models.UserModel
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 
 
 interface WebServices {
@@ -18,5 +19,8 @@ interface WebServices {
 
     @GET("/api/userTasks")
     suspend fun getUserTasks(): BaseModel<ArrayList<TaskModel>>
+
+    @PUT("/api/updateUser")
+    suspend fun updateUser(@Body userModel: UserModel): BaseModel<UserModel>
 
 }

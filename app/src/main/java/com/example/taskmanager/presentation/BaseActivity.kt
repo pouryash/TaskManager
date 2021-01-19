@@ -1,6 +1,7 @@
 package com.example.taskmanager.presentation
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.WindowManager
@@ -15,6 +16,8 @@ import io.reactivex.schedulers.Schedulers
 
 abstract class BaseActivity<V : ViewModel> : RuntimePermissionsActivity() {
 
+    var mProgressDialog: ProgressDialog? = null
+
     private var mViewModel: V? = null
 
     abstract fun getViewModel(): V
@@ -23,7 +26,7 @@ abstract class BaseActivity<V : ViewModel> : RuntimePermissionsActivity() {
     @SuppressLint("AutoDispose")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        mProgressDialog = ProgressDialog(this)
         AdjustFontScale()
     }
 
@@ -44,6 +47,22 @@ abstract class BaseActivity<V : ViewModel> : RuntimePermissionsActivity() {
 
     fun isNetworkConnected(): Boolean {
         return CommonUtils.isNetworkConnected(applicationContext)
+    }
+
+    fun showLoading() {
+        mProgressDialog?.let {
+            if (!mProgressDialog?.isShowing!!) {
+                mProgressDialog = CommonUtils.showLoadingDialog(this)
+            }
+        }
+    }
+
+    fun hideLoading() {
+        mProgressDialog?.let {
+            if (mProgressDialog?.isShowing!!) {
+                mProgressDialog?.cancel()
+            }
+        }
     }
 
     override fun onDestroy() {

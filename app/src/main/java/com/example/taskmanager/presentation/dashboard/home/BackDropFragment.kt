@@ -30,7 +30,9 @@ class BackDropFragment : BaseFragment<DashboardViewModel>() {
             it.data?.let { data ->
                 adapter.mRecordsItemList = data
                 adapter.notifyDataSetChanged()
+                return@DefaultStateRenderer
             }
+
         }
     }
 

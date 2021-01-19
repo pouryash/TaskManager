@@ -43,6 +43,22 @@
             android:singleLine="true"
             tools:text="pourya78.sh" />
 
+        <TextView
+            android:id="@+id/tv_profile_email"
+            style="@style/Text.Medium_White"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/standard_margin_small"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_profile_name"
+            android:textSize="@dimen/dimen_16"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:minLines="1"
+            android:singleLine="true"
+            tools:text="pourya@gmail.com" />
+
         <ImageView
             android:id="@+id/iv_profile_back"
             android:layout_width="wrap_content"
@@ -67,6 +83,7 @@
         app:layout_constraintGuide_percent="0.25" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv_edit_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/standard_margin_x"
@@ -116,7 +133,7 @@
                 android:background="@drawable/et_background_white"
                 app:drawableStartCompat="@drawable/ic_person_24"
                 android:hint="@string/full_name"
-                android:textSize="@dimen/sp_16"
+                android:textSize="@dimen/sp_15"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray500"
@@ -174,18 +191,21 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/standard_margin_x"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="@dimen/standard_margin_x"
+        android:layout_marginTop="@dimen/standard_margin_medium"
         android:layout_marginBottom="@dimen/standard_margin_x"
         android:background="@drawable/et_background_white"
         android:text="@string/log_out"
         android:textAllCaps="false"
-        app:icon="@drawable/ic_exit_app_24"
-        app:iconTint="@color/colorRed"
-        app:iconGravity="textEnd"
-        app:backgroundTint="@color/gray300"
         android:textColor="@color/colorRed"
+        app:backgroundTint="@color/gray300"
+        app:icon="@drawable/ic_exit_app_24"
+        app:iconGravity="textEnd"
+        app:iconTint="@color/colorRed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="@dimen/standard_margin_x"
+        android:layout_marginRight="@dimen/standard_margin_x"
+        app:layout_constraintTop_toBottomOf="@id/cv_edit_profile"
+        app:layout_constraintVertical_bias="1.0"
         bind:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,7 +30,7 @@ sealed class StateRendererRefactor<T>(
             Status.SUCCESSFUL -> {
                 val data = state.data
                 if (data == null)
-                    noContentRenderer?.show()
+                    noContentRenderer?.show(true)
                 else {
                     successRenderer.render(data)
                     noContentRenderer?.hide()
@@ -41,7 +41,7 @@ sealed class StateRendererRefactor<T>(
             Status.ERROR -> {
                 errorRenderer.show(state.error)
                 loadingRenderer.hide()
-                noContentRenderer?.show()
+                noContentRenderer?.show(false)
             }
             Status.LOADING -> {
                 errorRenderer.hide()
@@ -59,7 +59,7 @@ sealed class StateRendererRefactor<T>(
     ) : StateRendererRefactor<T>(
         successRenderer = FrameLayoutSuccessRendererRefactor(contentFrame, successBlock),
         loadingRenderer = FrameLayoutProgressRendererRefactor(contentFrame),
-        noContentRenderer = FrameLayoutNoContentRendererRefactor(contentFrame),
+        noContentRenderer = FrameLayoutNoContentRendererRefactor(contentFrame, retryBlock),
         errorRenderer = SnackbarErrorRendererRefactor(rootView, retryBlock, lifecycle)
     )
 }
@@ -79,23 +79,28 @@ interface ILoadingRenderRefactor {
 }
 
 interface INoContentRendererRefactor {
-    fun show()
+    fun show(hasReTry: Boolean)
     fun hide()
 }
 
-class FrameLayoutNoContentRendererRefactor(private val contentFrame: FrameLayout) :
+class FrameLayoutNoContentRendererRefactor(private val contentFrame: FrameLayout, private val retry: ()-> Unit) :
     INoContentRendererRefactor {
     private val noContentView: View by lazy {
         LayoutInflater.from(contentFrame.context)
             .inflate(R.layout.layout_state_handler, contentFrame, false).also {
-                it.state_progress.visibility = View.GONE
-                it.iv_state_empty.visibility = View.VISIBLE
-                it.tv_state_empty.visibility = View.VISIBLE
-                contentFrame.addView(it)
+                if (contentFrame.state_progress == null)
+                    contentFrame.addView(it)
             }
     }
 
-    override fun show() {
+    override fun show(hasReTry: Boolean) {
+        if (hasReTry) {
+            contentFrame.iv_retry.visibility = View.VISIBLE
+            contentFrame.iv_retry.setOnClickListener {
+                contentFrame.iv_retry.visibility = View.INVISIBLE
+                retry()
+            }
+        }
         renderNoContent(true)
     }
 
@@ -104,7 +109,9 @@ class FrameLayoutNoContentRendererRefactor(private val contentFrame: FrameLayout
     }
 
     private fun renderNoContent(showNoContent: Boolean) {
-        noContentView.visibility = if (showNoContent) View.VISIBLE else View.GONE
+        noContentView.state_progress.visibility = if (showNoContent) View.GONE else View.VISIBLE
+        noContentView.iv_state_empty.visibility = if (showNoContent) View.VISIBLE else View.GONE
+        noContentView.tv_state_empty.visibility = if (showNoContent) View.VISIBLE else View.GONE
     }
 }
 
@@ -114,10 +121,8 @@ class FrameLayoutProgressRendererRefactor(private val contentFrame: FrameLayout)
         LayoutInflater
             .from(contentFrame.context)
             .inflate(R.layout.layout_state_handler, contentFrame, false).also {
-                it.state_progress.visibility = View.VISIBLE
-                it.iv_state_empty.visibility = View.GONE
-                it.tv_state_empty.visibility = View.GONE
-                contentFrame.addView(it)
+                if (contentFrame.state_progress == null)
+                    contentFrame.addView(it)
             }
     }
 
@@ -130,7 +135,9 @@ class FrameLayoutProgressRendererRefactor(private val contentFrame: FrameLayout)
     }
 
     private fun renderLoading(showProgressbar: Boolean) {
-        progressView.visibility = if (showProgressbar) View.VISIBLE else View.GONE
+        progressView.state_progress.visibility = if (showProgressbar) View.VISIBLE else View.GONE
+        progressView.iv_state_empty.visibility = if (showProgressbar) View.GONE else View.VISIBLE
+        progressView.tv_state_empty.visibility = if (showProgressbar) View.GONE else View.VISIBLE
     }
 }
 
