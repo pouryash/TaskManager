@@ -58,10 +58,6 @@
             android:animateLayoutChanges="true"
             android:elevation="1dp"
             app:layout_behavior=".utils.GestureLockedBottomSheetBehavior"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:layout="@layout/fragment_back_drop" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -71,9 +67,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="invisible"
         android:clickable="true"
         android:focusable="true"
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
@@ -140,5 +136,26 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_task_dashboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_add_24"
+        app:tint="@color/white"
+        app:backgroundTint="@color/accent"
+        android:layout_margin="@dimen/standard_margin_x"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+    <FrameLayout
+        android:id="@+id/frl_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

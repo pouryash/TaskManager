@@ -6,13 +6,17 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.TranslateAnimation
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.taskmanager.R
 import com.example.taskmanager.presentation.BaseActivity
+import com.example.taskmanager.presentation.dashboard.addTask.AddTaskActivity
 import com.example.taskmanager.presentation.dashboard.profile.ProfileActivity
+import com.example.taskmanager.utils.CommonUtils
+import com.example.taskmanager.utils.ConstUtils
 import com.example.taskmanager.utils.launchActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -45,47 +49,58 @@ class DashboardActivity : BaseActivity<DashboardViewModel>() {
 
         lifecycleScope.launchWhenStarted {
             dashboardViewModel.userInfoFlow.collect {
-                tv_dashboard_user_name.text = "${resources.getString(R.string.user_welcome)} ${it.name}"
+                tv_dashboard_user_name.text =
+                    "${resources.getString(R.string.user_welcome)} ${it.name}"
+                fab_add_task_dashboard.visibility =
+                    if (it.role == ConstUtils.ROLE_USER) View.GONE else View.VISIBLE
             }
         }
 
-        iv_menu_dashboard.setOnClickListener{
-            if (menu_items.visibility == View.INVISIBLE) {
-                val animate = TranslateAnimation(
-                    0f,  // fromXDelta
-                    0f,  // toXDelta
-                    0f,  // fromYDelta
-                    menu_items.height.toFloat()
-                ) // toYDelta
+        iv_menu_dashboard.setOnClickListener {
+            if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_COLLAPSED)
+                openBottomSheet()
+            else
+                closeBottomSheet()
+//            if (menu_items.visibility == View.INVISIBLE) {
+//                val animate = TranslateAnimation(
+//                    0f,  // fromXDelta
+//                    0f,  // toXDelta
+//                    0f,  // fromYDelta
+//                    menu_items.height.toFloat()
+//                ) // toYDelta
+//
+//                animate.duration = 500
+//                animate.fillAfter = true
+//                animate.setAnimationListener(object : Animation.AnimationListener {
+//                    override fun onAnimationStart(p0: Animation?) {
+//                    }
+//
+//                    override fun onAnimationEnd(p0: Animation?) {
+//                        menu_items.visibility = View.VISIBLE
+//                    }
+//
+//                    override fun onAnimationRepeat(p0: Animation?) {
+//                    }
+//
+//                })
+//                coordinatorLayout.startAnimation(animate)
+//            }else{
+//                menu_items.visibility = View.INVISIBLE
+//                val animate = TranslateAnimation(
+//                    0f,  // fromXDelta
+//                    0f,  // toXDelta
+//                    menu_items.height.toFloat(),  // fromYDelta
+//                    0f
+//                ) // toYDelta
+//
+//                animate.duration = 500
+//                animate.fillAfter = true
+//                coordinatorLayout.startAnimation(animate)
+//            }
+        }
 
-                animate.duration = 500
-                animate.fillAfter = true
-                animate.setAnimationListener(object : Animation.AnimationListener {
-                    override fun onAnimationStart(p0: Animation?) {
-                    }
-
-                    override fun onAnimationEnd(p0: Animation?) {
-                        menu_items.visibility = View.VISIBLE
-                    }
-
-                    override fun onAnimationRepeat(p0: Animation?) {
-                    }
-
-                })
-                coordinatorLayout.startAnimation(animate)
-            }else{
-                menu_items.visibility = View.INVISIBLE
-                val animate = TranslateAnimation(
-                    0f,  // fromXDelta
-                    0f,  // toXDelta
-                    menu_items.height.toFloat(),  // fromYDelta
-                    0f
-                ) // toYDelta
-
-                animate.duration = 500
-                animate.fillAfter = true
-                coordinatorLayout.startAnimation(animate)
-            }
+        fab_add_task_dashboard.setOnClickListener {
+            launchActivity<AddTaskActivity>()
         }
 
         menu_item_profile.setOnClickListener {
@@ -113,11 +128,13 @@ class DashboardActivity : BaseActivity<DashboardViewModel>() {
     }
 
     fun closeBottomSheet() {
-//        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+        menu_items.visibility = View.VISIBLE
     }
 
     fun openBottomSheet() {
-//        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+        menu_items.visibility = View.INVISIBLE
     }
 
     private fun configureBackdrop() {
@@ -134,6 +151,18 @@ class DashboardActivity : BaseActivity<DashboardViewModel>() {
 
                 // Set the reference into class attribute (will be used latter)
                 mBottomSheetBehavior = bsb
+
+                menu_items.viewTreeObserver
+                    .addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+                        override fun onGlobalLayout() {
+                            menu_items.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                            mBottomSheetBehavior?.setPeekHeight(
+                                CommonUtils.getScreenHeight(this@DashboardActivity) - (toolbar.layoutParams.height + menu_items.height + 50),
+                                true
+                            )
+                        }
+                    })
+
             }
         }
     }

@@ -15,7 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskManager">
-        <activity android:name=".presentation.dashboard.profile.ProfileActivity"></activity>
+        <activity android:name=".presentation.dashboard.profile.ProfileActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".presentation.dashboard.addTask.AddTaskActivity"
+            android:screenOrientation="sensorPortrait"/>
         <activity
             android:name=".presentation.dashboard.home.DashboardActivity"
             android:screenOrientation="sensorPortrait" />

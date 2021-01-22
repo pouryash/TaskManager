@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TaskManager</string>
     <string name="app_sloan">Manage Your Tasks Easy</string>
+    <string name="unknown_error">unknown error occurred, try again</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">login</string>
@@ -26,6 +27,17 @@
     <string name="full_name">User Name</string>
     <string name="save">Save</string>
     <string name="log_out">Log Out</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    //taskDetail
+    <string name="description">Description: </string>
+    <string name="reporter_name">Reporter: </string>
+    <string name="created_date">Created Date:</string>
+    <string name="status">status:</string>
+    <string name="logged_time">Logged Time:</string>
+    <string name="log_example">(eg. 2w 5d 12h)</string>
+    <string name="log">Log:</string>
+    <string name="add_description">description...</string>
+    <string name="priority">Priority:</string>
+    <string name="assign_to">Assign To:</string>
+
 </resources>

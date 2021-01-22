@@ -12,5 +12,7 @@ data class UserModel(
     @SerializedName("role")
     val role: String = "",
     @SerializedName("token")
-    val token: String = ""
+    val token: String = "",
+    @SerializedName("id")
+    val userId: Long = 0
 )

@@ -1,5 +1,6 @@
 package com.example.taskmanager.utils
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Color
@@ -7,13 +8,19 @@ import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.DisplayMetrics
 import android.util.Log
 import com.example.taskmanager.R
 import com.google.gson.Gson
-import retrofit2.Retrofit
 
 
 object CommonUtils {
+
+    fun getScreenHeight(activity: Activity): Int{
+        val displayMetrics = DisplayMetrics()
+        activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        return displayMetrics.heightPixels
+    }
 
     fun isNetworkConnected(context: Context): Boolean {
         val cm: ConnectivityManager =
@@ -54,7 +61,7 @@ object CommonUtils {
 
    inline fun <reified T> convertJsonStringToModel(data: String): T{
         val gson = Gson()
-       Log.d("DDDDDDDDDDDDDD",T::class.java.toString())
+       Log.d("DDDDDDDDDDDDDD", T::class.java.toString())
         return gson.fromJson(data, T::class.java)
     }
 

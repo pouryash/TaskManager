@@ -13,6 +13,8 @@ interface UserRepository {
 
     suspend fun updateUser(userModel: UserModel): ResultWrapper<BaseModel<UserModel>>
 
+    suspend fun getUsers(): ResultWrapper<BaseModel<ArrayList<UserModel>>>
+
     suspend fun saveUserInfo(userModel: UserModel)
 
     suspend fun readUserInfo(): UserModel

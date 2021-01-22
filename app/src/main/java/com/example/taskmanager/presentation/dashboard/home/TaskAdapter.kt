@@ -7,7 +7,7 @@ import com.example.taskmanager.data.models.TaskModel
 import com.example.taskmanager.databinding.ItemTaskBinding
 import com.example.taskmanager.utils.BaseViewHolder
 
-class TaskAdapter(var mRecordsItemList: MutableList<TaskModel>) :
+class TaskAdapter(var mRecordsItemList: MutableList<TaskModel>, var onItemClick: (model: TaskModel)->Unit) :
     RecyclerView.Adapter<BaseViewHolder>() {
 
     override fun getItemCount(): Int {
@@ -25,15 +25,18 @@ class TaskAdapter(var mRecordsItemList: MutableList<TaskModel>) :
             parent,
             false
         )
-        return MajameViewHolder(mMajameViewBinding)
+        return MajameViewHolder(mMajameViewBinding, onItemClick)
     }
 
 
-    inner class MajameViewHolder(val mBinding: ItemTaskBinding) :
+    inner class MajameViewHolder(val mBinding: ItemTaskBinding, val onItemClick: (model: TaskModel)->Unit) :
         BaseViewHolder(mBinding.root) {
         private lateinit var taskItemViewModel: TaskItemViewModel
 
         override fun onBind(position: Int) {
+            mBinding.root.setOnClickListener {
+                onItemClick(mRecordsItemList[position])
+            }
             val recordsItem = mRecordsItemList[position]
             taskItemViewModel = TaskItemViewModel(recordsItem)
             mBinding.viewModel = taskItemViewModel

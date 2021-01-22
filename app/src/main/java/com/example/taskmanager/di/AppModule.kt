@@ -2,6 +2,7 @@ package com.example.taskmanager.di
 
 import com.example.taskmanager.presentation.splash.SplashViewModel
 import com.example.taskmanager.presentation.authentication.AuthenticationViewModel
+import com.example.taskmanager.presentation.dashboard.addTask.AddTaskViewModel
 import com.example.taskmanager.presentation.dashboard.home.DashboardViewModel
 import com.example.taskmanager.presentation.dashboard.profile.ProfileViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -17,6 +18,8 @@ val appModule = module {
     viewModel { ProfileViewModel(get()) }
 
     viewModel { DashboardViewModel(get(), get()) }
+
+    viewModel { AddTaskViewModel(get(), get()) }
 
 
 }

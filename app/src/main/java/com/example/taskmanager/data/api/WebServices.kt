@@ -20,7 +20,13 @@ interface WebServices {
     @GET("/api/userTasks")
     suspend fun getUserTasks(): BaseModel<ArrayList<TaskModel>>
 
+    @GET("/api/users")
+    suspend fun getUser(): BaseModel<ArrayList<UserModel>>
+
     @PUT("/api/updateUser")
     suspend fun updateUser(@Body userModel: UserModel): BaseModel<UserModel>
+
+    @POST("/api/createTask")
+    suspend fun createTask(@Body taskModel: TaskModel): BaseModel<TaskModel>
 
 }

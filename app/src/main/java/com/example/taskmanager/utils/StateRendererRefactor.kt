@@ -83,15 +83,12 @@ interface INoContentRendererRefactor {
     fun hide()
 }
 
-class FrameLayoutNoContentRendererRefactor(private val contentFrame: FrameLayout, private val retry: ()-> Unit) :
+class FrameLayoutNoContentRendererRefactor(
+    private val contentFrame: FrameLayout,
+    private val retry: () -> Unit
+) :
     INoContentRendererRefactor {
-    private val noContentView: View by lazy {
-        LayoutInflater.from(contentFrame.context)
-            .inflate(R.layout.layout_state_handler, contentFrame, false).also {
-                if (contentFrame.state_progress == null)
-                    contentFrame.addView(it)
-            }
-    }
+    private lateinit var noContentView: View
 
     override fun show(hasReTry: Boolean) {
         if (hasReTry) {
@@ -109,9 +106,13 @@ class FrameLayoutNoContentRendererRefactor(private val contentFrame: FrameLayout
     }
 
     private fun renderNoContent(showNoContent: Boolean) {
-        noContentView.state_progress.visibility = if (showNoContent) View.GONE else View.VISIBLE
-        noContentView.iv_state_empty.visibility = if (showNoContent) View.VISIBLE else View.GONE
-        noContentView.tv_state_empty.visibility = if (showNoContent) View.VISIBLE else View.GONE
+        noContentView = LayoutInflater.from(contentFrame.context)
+                .inflate(R.layout.layout_state_handler, contentFrame, false).also {
+                    if (contentFrame.state_progress == null)
+                        contentFrame.addView(it)
+                }
+        contentFrame.iv_state_empty.visibility = if (showNoContent) View.VISIBLE else View.GONE
+        contentFrame.tv_state_empty.visibility = if (showNoContent) View.VISIBLE else View.GONE
     }
 }
 
@@ -136,8 +137,10 @@ class FrameLayoutProgressRendererRefactor(private val contentFrame: FrameLayout)
 
     private fun renderLoading(showProgressbar: Boolean) {
         progressView.state_progress.visibility = if (showProgressbar) View.VISIBLE else View.GONE
-        progressView.iv_state_empty.visibility = if (showProgressbar) View.GONE else View.VISIBLE
-        progressView.tv_state_empty.visibility = if (showProgressbar) View.GONE else View.VISIBLE
+        if (showProgressbar){
+            progressView.iv_state_empty.visibility = View.GONE
+            progressView.tv_state_empty.visibility = View.GONE
+        }
     }
 }
 

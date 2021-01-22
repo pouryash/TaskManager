@@ -36,6 +36,12 @@ class UserRepository (private val api: WebServices, private val dispatcher: Coro
         }
     }
 
+    override suspend fun getUsers(): ResultWrapper<BaseModel<ArrayList<UserModel>>> {
+        return apiCaller.safeApiCall(dispatcher){
+            api.getUser()
+        }
+    }
+
     override suspend fun saveUserInfo(userModel: UserModel) {
         try {
             appPreference.save(PreferencesKeys.USERINFO, userModel)

@@ -10,4 +10,6 @@ interface DashboardInterface {
 
     suspend fun getUserTasks(): ResultWrapper<BaseModel<ArrayList<TaskModel>>>
 
+    suspend fun createTask(taskModel: TaskModel): ResultWrapper<BaseModel<TaskModel>>
+
 }
