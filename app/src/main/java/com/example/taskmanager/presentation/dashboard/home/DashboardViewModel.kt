@@ -31,6 +31,19 @@ class DashboardViewModel(private val userRepository: UserRepository, private val
         }
     }
 
+    fun searchTask(taskModel: TaskModel) {
+        viewModelScope.launch {
+            userTasksFlow.value = RIM(state = Status.LOADING)
+            when (val result = dashboardRepository.searchTask(taskModel)) {
+                is ResultWrapper.Success -> userTasksFlow.value = RIM(state = Status.SUCCESSFUL, data = result.value)
+
+                is ResultWrapper.NetworkError -> userTasksFlow.value = RIM(state = Status.ERROR, error = result.error?.message)
+
+                is ResultWrapper.GenericError -> userTasksFlow.value = RIM(state = Status.ERROR, error = result.error)
+            }
+        }
+    }
+
     fun getUserInfo(){
         viewModelScope.launch {
            userInfoFlow.value = userRepository.readUserInfo()

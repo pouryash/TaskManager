@@ -12,6 +12,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.taskmanager.R
+import com.example.taskmanager.data.models.TaskModel
 import com.example.taskmanager.presentation.BaseActivity
 import com.example.taskmanager.presentation.dashboard.addTask.AddTaskActivity
 import com.example.taskmanager.presentation.dashboard.profile.ProfileActivity
@@ -41,9 +42,6 @@ class DashboardActivity : BaseActivity<DashboardViewModel>() {
     private fun setup() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-//       supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//       supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_home_24)
-//       supportActionBar?.setHomeButtonEnabled(true)
 
         dashboardViewModel.getUserInfo()
 
@@ -121,7 +119,29 @@ class DashboardActivity : BaseActivity<DashboardViewModel>() {
         val searchItem: MenuItem? = menu?.findItem(R.id.action_search)
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView: SearchView = searchItem?.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(text: String): Boolean {
+                val taskModel = TaskModel(taskName = text)
+                dashboardViewModel.searchTask(taskModel)
+                return true
+            }
 
+            override fun onQueryTextChange(text: String): Boolean {
+                return true
+            }
+
+        })
+        searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+               return true
+            }
+
+            override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+                dashboardViewModel.getUserTasks()
+                return true
+            }
+
+        })
 
         searchView?.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         return true
@@ -166,5 +186,6 @@ class DashboardActivity : BaseActivity<DashboardViewModel>() {
             }
         }
     }
+
 }
 

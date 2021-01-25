@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
-class LoginFragment : BaseFragment<AuthenticationViewModel>() {
+class   LoginFragment : BaseFragment<AuthenticationViewModel>() {
 
     private val authenticationViewModel: AuthenticationViewModel by sharedViewModel()
 

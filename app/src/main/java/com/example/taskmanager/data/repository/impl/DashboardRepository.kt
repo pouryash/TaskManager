@@ -27,5 +27,11 @@ class DashboardRepository(
         }
     }
 
+    override suspend fun searchTask(taskModel: TaskModel): ResultWrapper<BaseModel<ArrayList<TaskModel>>> {
+        return apiCaller.safeApiCall(dispatcher) {
+            api.searchTask(taskModel)
+        }
+    }
+
 
 }

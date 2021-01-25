@@ -82,11 +82,11 @@ class ConnectivityInterceptor (private val context: Context) : Interceptor {
 
     private fun isInternetAvailable(): Boolean {
         return try {
-            val timeoutMs = 1500
-            val sock = Socket()
-            val sockaddr = InetSocketAddress("8.8.8.8", 53)
-            sock.connect(sockaddr, timeoutMs)
-            sock.close()
+//            val timeoutMs = 1500
+//            val sock = Socket()
+//            val sockaddr = InetSocketAddress("8.8.8.8", 53)
+//            sock.connect(sockaddr, timeoutMs)
+//            sock.close()
             true
         } catch (e: IOException) {
             false

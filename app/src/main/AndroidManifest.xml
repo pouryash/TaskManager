@@ -21,8 +21,10 @@
             android:screenOrientation="sensorPortrait"/>
         <activity
             android:name=".presentation.dashboard.home.DashboardActivity"
-            android:screenOrientation="sensorPortrait" />
-        <activity android:name=".presentation.authentication.AuthenticationActivity" />
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
+        <activity android:name=".presentation.authentication.AuthenticationActivity"
+            android:screenOrientation="sensorPortrait"/>
         <activity
             android:name=".presentation.splash.SplashScreen"
             android:screenOrientation="sensorPortrait">

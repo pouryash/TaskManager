@@ -3,10 +3,7 @@ package com.example.taskmanager.data.api
 import com.example.taskmanager.data.models.BaseModel
 import com.example.taskmanager.data.models.TaskModel
 import com.example.taskmanager.data.models.UserModel
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
+import retrofit2.http.*
 
 
 interface WebServices {
@@ -28,5 +25,8 @@ interface WebServices {
 
     @POST("/api/createTask")
     suspend fun createTask(@Body taskModel: TaskModel): BaseModel<TaskModel>
+
+    @POST("/api/searchTask")
+    suspend fun searchTask(@Body taskModel: TaskModel): BaseModel<ArrayList<TaskModel>>
 
 }

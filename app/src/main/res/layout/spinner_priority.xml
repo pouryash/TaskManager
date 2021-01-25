@@ -29,7 +29,6 @@
         android:minLines="1"
         android:maxLines="1"
         android:paddingLeft="@dimen/standard_margin_small"
-        android:layout_marginRight="@dimen/standard_margin_small"
         app:layout_constraintLeft_toRightOf="@id/iv_priority_custom_spinner"
         app:layout_constraintTop_toTopOf="@id/iv_priority_custom_spinner"
         app:layout_constraintBottom_toBottomOf="@id/iv_priority_custom_spinner"

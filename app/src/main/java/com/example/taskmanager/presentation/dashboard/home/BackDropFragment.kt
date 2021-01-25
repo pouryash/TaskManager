@@ -16,6 +16,7 @@ import com.example.taskmanager.data.models.TaskModel
 import com.example.taskmanager.presentation.BaseFragment
 import com.example.taskmanager.presentation.dashboard.taskDetail.TaskDetailFragment
 import com.example.taskmanager.utils.StateRendererRefactor
+import com.example.taskmanager.utils.Status
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.fragment_back_drop.*
 import kotlinx.android.synthetic.main.fragment_back_drop.view.*
@@ -48,7 +49,6 @@ class BackDropFragment : BaseFragment<DashboardViewModel>() {
                 adapter.notifyDataSetChanged()
                 return@DefaultStateRenderer
             }
-
         }
     }
 
@@ -71,6 +71,20 @@ class BackDropFragment : BaseFragment<DashboardViewModel>() {
 
         lifecycleScope.launchWhenStarted {
             dashboardViewModel.userTasksFlow.collect {
+                when (it.state) {
+                    Status.SUCCESSFUL -> {
+                        it.data?.data?.let {
+                            if (it.isNotEmpty())
+                            rv_dashboard_tesks.visibility = View.VISIBLE
+                        }
+                    }
+                    Status.LOADING -> {
+                        rv_dashboard_tesks.visibility = View.INVISIBLE
+                    }
+                    Status.ERROR -> {
+                        rv_dashboard_tesks.visibility = View.INVISIBLE
+                    }
+                }
                 if (it.data?.data.isNullOrEmpty())
                     it.data = null
                 stateRenderer.render(it)

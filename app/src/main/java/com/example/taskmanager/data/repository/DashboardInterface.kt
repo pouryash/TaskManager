@@ -12,4 +12,6 @@ interface DashboardInterface {
 
     suspend fun createTask(taskModel: TaskModel): ResultWrapper<BaseModel<TaskModel>>
 
+    suspend fun searchTask(taskModel: TaskModel): ResultWrapper<BaseModel<ArrayList<TaskModel>>>
+
 }

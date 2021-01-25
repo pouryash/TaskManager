@@ -91,13 +91,6 @@ class FrameLayoutNoContentRendererRefactor(
     private lateinit var noContentView: View
 
     override fun show(hasReTry: Boolean) {
-        if (hasReTry) {
-            contentFrame.iv_retry.visibility = View.VISIBLE
-            contentFrame.iv_retry.setOnClickListener {
-                contentFrame.iv_retry.visibility = View.INVISIBLE
-                retry()
-            }
-        }
         renderNoContent(true)
     }
 
