@@ -32,6 +32,7 @@
     <string name="description">Description: </string>
     <string name="reporter_name">Reporter: </string>
     <string name="created_date">Created Date:</string>
+    <string name="end_date">End Date:</string>
     <string name="status">status:</string>
     <string name="logged_time">Logged Time:</string>
     <string name="log_example">(eg. 2w 5d 12h)</string>
@@ -39,5 +40,7 @@
     <string name="add_description">description...</string>
     <string name="priority">Priority:</string>
     <string name="assign_to">Assign To:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

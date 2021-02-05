@@ -3,10 +3,7 @@ package com.example.taskmanager.presentation.dashboard.home
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -14,10 +11,11 @@ import com.example.taskmanager.R
 import com.example.taskmanager.data.models.BaseModel
 import com.example.taskmanager.data.models.TaskModel
 import com.example.taskmanager.presentation.BaseFragment
-import com.example.taskmanager.presentation.dashboard.taskDetail.TaskDetailFragment
+import com.example.taskmanager.presentation.dashboard.home.taskDetail.TaskDetailFragment
 import com.example.taskmanager.utils.StateRendererRefactor
 import com.example.taskmanager.utils.Status
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.activity_dashboard.view.*
 import kotlinx.android.synthetic.main.fragment_back_drop.*
 import kotlinx.android.synthetic.main.fragment_back_drop.view.*
 import kotlinx.coroutines.flow.collect
@@ -25,18 +23,18 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class BackDropFragment : BaseFragment<DashboardViewModel>() {
-
+    var lastPos: Int = -1
+    lateinit var initView: View
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private val dashboardViewModel: DashboardViewModel by sharedViewModel()
 
-    private var adapter: TaskAdapter = TaskAdapter(mutableListOf()) {
-
-        val taskDetailFragment = TaskDetailFragment.newInstance(it)
+    private var adapter: TaskAdapter = TaskAdapter(mutableListOf()) { model, pos ->
+        lastPos = pos
+        val taskDetailFragment = TaskDetailFragment.newInstance(model)
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.frl_dashboard, taskDetailFragment)
             .addToBackStack(null)
             .commit()
-
     }
 
     private val stateRenderer by lazy {
@@ -65,6 +63,13 @@ class BackDropFragment : BaseFragment<DashboardViewModel>() {
     override fun getLayoutId(): Int = R.layout.fragment_back_drop
 
     override fun onAttachView(view: View) {
+        initView = view
+        setFragmentResultListener("TaskDetailRequestKey") { requestKey, bundle ->
+            // We use a String here, but any type that can be put in a Bundle is supported
+            val result = bundle.get("taskDetail") as TaskModel
+            adapter.notifyItemChanged(lastPos, result)
+        }
+
         configRV(view)
 
         dashboardViewModel.getUserTasks()
@@ -75,7 +80,7 @@ class BackDropFragment : BaseFragment<DashboardViewModel>() {
                     Status.SUCCESSFUL -> {
                         it.data?.data?.let {
                             if (it.isNotEmpty())
-                            rv_dashboard_tesks.visibility = View.VISIBLE
+                                rv_dashboard_tesks.visibility = View.VISIBLE
                         }
                     }
                     Status.LOADING -> {

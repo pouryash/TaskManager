@@ -33,5 +33,11 @@ class DashboardRepository(
         }
     }
 
+    override suspend fun updateTask(taskModel: TaskModel): ResultWrapper<BaseModel<TaskModel>> {
+        return apiCaller.safeApiCall(dispatcher) {
+            api.updateTask(taskModel)
+        }
+    }
+
 
 }

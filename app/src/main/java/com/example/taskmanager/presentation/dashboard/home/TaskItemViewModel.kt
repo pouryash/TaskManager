@@ -74,7 +74,7 @@ fun setStatus(view: LinearLayout, status: String) {
             view.setBackgroundResource(R.color.colorLightBlue)
 
         }
-        "testing" -> {
+        "test" -> {
             view.setBackgroundResource(R.color.colorOrange)
 
         }

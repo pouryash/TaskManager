@@ -29,4 +29,7 @@ interface WebServices {
     @POST("/api/searchTask")
     suspend fun searchTask(@Body taskModel: TaskModel): BaseModel<ArrayList<TaskModel>>
 
+    @PUT("/api/updateTask")
+    suspend fun updateTask(@Body taskModel: TaskModel): BaseModel<TaskModel>
+
 }

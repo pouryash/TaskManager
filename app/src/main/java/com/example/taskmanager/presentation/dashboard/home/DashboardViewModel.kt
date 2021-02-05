@@ -17,6 +17,7 @@ class DashboardViewModel(private val userRepository: UserRepository, private val
 
     val userInfoFlow = MutableStateFlow(UserModel())
     val userTasksFlow = MutableStateFlow<RIM<BaseModel<ArrayList<TaskModel>>>>(RIM(state = Status.EMPTY))
+    val updatedTasksFlow = MutableStateFlow<RIM<BaseModel<TaskModel>>>(RIM(state = Status.EMPTY))
 
     fun getUserTasks() {
         viewModelScope.launch {
@@ -40,6 +41,19 @@ class DashboardViewModel(private val userRepository: UserRepository, private val
                 is ResultWrapper.NetworkError -> userTasksFlow.value = RIM(state = Status.ERROR, error = result.error?.message)
 
                 is ResultWrapper.GenericError -> userTasksFlow.value = RIM(state = Status.ERROR, error = result.error)
+            }
+        }
+    }
+
+    fun updateTaskTask(taskModel: TaskModel) {
+        viewModelScope.launch {
+            updatedTasksFlow.value = RIM(state = Status.LOADING)
+            when (val result = dashboardRepository.updateTask(taskModel)) {
+                is ResultWrapper.Success -> updatedTasksFlow.value = RIM(state = Status.SUCCESSFUL, data = result.value)
+
+                is ResultWrapper.NetworkError -> updatedTasksFlow.value = RIM(state = Status.ERROR, error = result.error?.message)
+
+                is ResultWrapper.GenericError -> updatedTasksFlow.value = RIM(state = Status.ERROR, error = result.error)
             }
         }
     }

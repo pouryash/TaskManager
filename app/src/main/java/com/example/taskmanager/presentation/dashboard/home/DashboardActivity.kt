@@ -27,6 +27,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DashboardActivity : BaseActivity<DashboardViewModel>() {
 
+    private var isQueryChanged = false
     private val dashboardViewModel: DashboardViewModel by viewModel()
     private var mBottomSheetBehavior: BottomSheetBehavior<View?>? = null
 
@@ -123,6 +124,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>() {
             override fun onQueryTextSubmit(text: String): Boolean {
                 val taskModel = TaskModel(taskName = text)
                 dashboardViewModel.searchTask(taskModel)
+                isQueryChanged = true
                 return true
             }
 
@@ -133,11 +135,14 @@ class DashboardActivity : BaseActivity<DashboardViewModel>() {
         })
         searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
-               return true
+                return true
             }
 
             override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
-                dashboardViewModel.getUserTasks()
+                if (isQueryChanged) {
+                    dashboardViewModel.getUserTasks()
+                    isQueryChanged = false
+                }
                 return true
             }
 
