@@ -1,6 +1,7 @@
 package com.example.taskmanager.data.api
 
 import com.example.taskmanager.data.models.BaseModel
+import com.example.taskmanager.data.models.FilterTaskModel
 import com.example.taskmanager.data.models.TaskModel
 import com.example.taskmanager.data.models.UserModel
 import retrofit2.http.*
@@ -32,4 +33,6 @@ interface WebServices {
     @PUT("/api/updateTask")
     suspend fun updateTask(@Body taskModel: TaskModel): BaseModel<TaskModel>
 
+    @POST("/api/filterTasks")
+    suspend fun filterTasks(@Body filterTaskModel: FilterTaskModel): BaseModel<ArrayList<TaskModel>>
 }

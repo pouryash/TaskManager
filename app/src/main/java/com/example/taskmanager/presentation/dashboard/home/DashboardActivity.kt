@@ -15,6 +15,8 @@ import com.example.taskmanager.R
 import com.example.taskmanager.data.models.TaskModel
 import com.example.taskmanager.presentation.BaseActivity
 import com.example.taskmanager.presentation.dashboard.addTask.AddTaskActivity
+import com.example.taskmanager.presentation.dashboard.home.filter.FilterFragment
+import com.example.taskmanager.presentation.dashboard.home.taskDetail.TaskDetailFragment
 import com.example.taskmanager.presentation.dashboard.profile.ProfileActivity
 import com.example.taskmanager.utils.CommonUtils
 import com.example.taskmanager.utils.ConstUtils
@@ -105,9 +107,15 @@ class DashboardActivity : BaseActivity<DashboardViewModel>() {
         menu_item_profile.setOnClickListener {
             launchActivity<ProfileActivity>()
         }
-
+        supportFragmentManager.addFragmentOnAttachListener { fragmentManager, fragment ->
+            fab_add_task_dashboard.visibility = View.GONE
+        }
         menu_item_filetr.setOnClickListener {
-
+            val filterFragment = FilterFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frl_dashboard, filterFragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 
@@ -162,6 +170,11 @@ class DashboardActivity : BaseActivity<DashboardViewModel>() {
         menu_items.visibility = View.INVISIBLE
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (supportFragmentManager.backStackEntryCount == 0 && getViewModel().userInfoFlow.value.role == "admin")
+            fab_add_task_dashboard.visibility = View.VISIBLE
+    }
     private fun configureBackdrop() {
         // Get the fragment reference
         val fragment = supportFragmentManager.findFragmentById(R.id.filter_fragment)

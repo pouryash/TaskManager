@@ -16,6 +16,10 @@ import com.google.gson.Gson
 
 object CommonUtils {
 
+    fun ConverDateToString(year: Int, month: Int, day: Int): String{
+      return "${if (day<10) String.format("%02d", day) else day} / ${if (month<10) String.format("%02d", month) else month} / $year"
+    }
+
     fun getScreenHeight(activity: Activity): Int{
         val displayMetrics = DisplayMetrics()
         activity.windowManager.defaultDisplay.getMetrics(displayMetrics)

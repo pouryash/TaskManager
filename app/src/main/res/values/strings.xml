@@ -10,7 +10,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="btn_link_to_login">Already registred! Login Me</string>
     <string name="data_not_exist">No Data Available</string>
-    <string name="filter">filter list</string>
+    <string name="filter_list">filter list</string>
     <string name="user_welcome">hi, </string>
 
     //task
@@ -40,7 +40,14 @@
     <string name="add_description">description...</string>
     <string name="priority">Priority:</string>
     <string name="assign_to">Assign To:</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="high">high</string>
+    <string name="todo">todo</string>
+    <string name="in_progress">in progress</string>
+    <string name="test">test</string>
+    <string name="done">done</string>
+    <string name="filter">filter</string>
+    <string name="from_date">From Date:</string>
+    <string name="to_date">to Date</string>
+    <string name="remove_filter">remove filter</string>
 
 </resources>

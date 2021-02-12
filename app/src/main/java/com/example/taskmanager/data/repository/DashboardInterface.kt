@@ -1,6 +1,7 @@
 package com.example.taskmanager.data.repository
 
 import com.example.taskmanager.data.models.BaseModel
+import com.example.taskmanager.data.models.FilterTaskModel
 import com.example.taskmanager.data.models.TaskModel
 import com.example.taskmanager.data.models.UserModel
 import com.example.taskmanager.utils.ResultWrapper
@@ -15,5 +16,7 @@ interface DashboardInterface {
     suspend fun searchTask(taskModel: TaskModel): ResultWrapper<BaseModel<ArrayList<TaskModel>>>
 
     suspend fun updateTask(taskModel: TaskModel): ResultWrapper<BaseModel<TaskModel>>
+
+    suspend fun filterask(filterTaskModel: FilterTaskModel): ResultWrapper<BaseModel<ArrayList<TaskModel>>>
 
 }

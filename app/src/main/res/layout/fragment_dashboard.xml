@@ -37,7 +37,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:focusable="true"
-        android:tooltipText="@string/filter"
+        android:tooltipText="@string/filter_list"
         android:paddingTop="@dimen/standard_margin_x"
         android:paddingLeft="@dimen/standard_margin_medium"
         android:paddingRight="@dimen/standard_margin_medium"

@@ -11,6 +11,7 @@ import com.example.taskmanager.R
 import com.example.taskmanager.data.models.BaseModel
 import com.example.taskmanager.data.models.TaskModel
 import com.example.taskmanager.presentation.BaseFragment
+import com.example.taskmanager.presentation.CustomSnackbar
 import com.example.taskmanager.presentation.dashboard.home.taskDetail.TaskDetailFragment
 import com.example.taskmanager.utils.StateRendererRefactor
 import com.example.taskmanager.utils.Status
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.activity_dashboard.view.*
 import kotlinx.android.synthetic.main.fragment_back_drop.*
 import kotlinx.android.synthetic.main.fragment_back_drop.view.*
+import kotlinx.android.synthetic.main.fragment_filter.view.*
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -70,10 +72,45 @@ class BackDropFragment : BaseFragment<DashboardViewModel>() {
             adapter.notifyItemChanged(lastPos, result)
         }
 
-        configRV(view)
+        view.cv_remove_filter.setOnClickListener {
+            it.visibility = View.GONE
+            observeDefaultTask()
+        }
 
+        configRV(view)
+        observeDefaultTask()
+        observeFilterTask()
         dashboardViewModel.getUserTasks()
 
+    }
+
+    private fun observeFilterTask() {
+        lifecycleScope.launchWhenStarted {
+            dashboardViewModel.filterTasksFlow.collect {
+                when (it.state) {
+                    Status.SUCCESSFUL -> {
+                        it.data?.data?.let {
+                            if (it.isNotEmpty()) {
+                                rv_dashboard_tesks.visibility = View.VISIBLE
+                                cv_remove_filter.visibility = View.VISIBLE
+                                adapter.mRecordsItemList = it
+                                adapter.notifyDataSetChanged()
+                            }
+                        }
+                    }
+                    Status.LOADING -> {
+                        rv_dashboard_tesks.visibility = View.INVISIBLE
+                    }
+                    Status.ERROR -> {
+                        rv_dashboard_tesks.visibility = View.INVISIBLE
+                        CustomSnackbar.make(frl_content, it.error.toString()).show()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeDefaultTask() {
         lifecycleScope.launchWhenStarted {
             dashboardViewModel.userTasksFlow.collect {
                 when (it.state) {
@@ -95,7 +132,6 @@ class BackDropFragment : BaseFragment<DashboardViewModel>() {
                 stateRenderer.render(it)
             }
         }
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

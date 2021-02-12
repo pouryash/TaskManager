@@ -15,7 +15,7 @@ data class TaskModel(
     @SerializedName("reporter")
     val reporter: String = "",
     @SerializedName("priority")
-    val priority: String = "",
+    var priority: String = "",
     @SerializedName("status")
     var status: String = "",
     @SerializedName("loggedTime")

@@ -34,7 +34,6 @@ class TaskDetailFragment : BaseFragment<DashboardViewModel>(), AdapterView.OnIte
         arguments?.let {
             task = it.getParcelable(TASK_PARAM)!!
         }
-        requireActivity().fab_add_task_dashboard.visibility = View.GONE
     }
 
     private val dashboardViewModel: DashboardViewModel by sharedViewModel()
@@ -55,8 +54,6 @@ class TaskDetailFragment : BaseFragment<DashboardViewModel>(), AdapterView.OnIte
         super.onDestroyView()
         val result = task
         setFragmentResult("TaskDetailRequestKey", bundleOf("taskDetail" to result))
-        requireActivity().fab_add_task_dashboard.visibility = View.VISIBLE
-
     }
 
     private fun observe(){

@@ -2,6 +2,7 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/main_round_corner"
     android:id="@+id/swipe_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,16 +11,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_remove_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/accent"
+            android:padding="@dimen/standard_margin_medium"
+            android:layout_marginVertical="@dimen/standard_margin_medium"
+            app:cardCornerRadius="@dimen/standard_margin_small"
+            android:layout_marginHorizontal="@dimen/standard_margin_medium"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Text.Medium_Black"
+                android:paddingLeft="@dimen/standard_margin_small"
+                android:textColor="@color/gray100"
+                android:textSize="@dimen/sp_16"
+                app:drawableTint="@color/gray100"
+                android:text="@string/remove_filter"
+                android:gravity="center"
+                app:drawableLeftCompat="@drawable/ic_close_24" />
+
+        </androidx.cardview.widget.CardView>
+
+
         <FrameLayout
             android:id="@+id/frl_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:animateLayoutChanges="true"
-            android:background="@drawable/main_round_corner"
             android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/cv_remove_filter">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_dashboard_tesks"
@@ -27,7 +57,7 @@
                 android:layout_height="match_parent"
                 android:overScrollMode="never"
                 android:paddingTop="@dimen/standard_margin_medium"
-                tools:listitem="@layout/item_task" />
+                tools:listitem="@layout/item_task"/>
 
         </FrameLayout>
 

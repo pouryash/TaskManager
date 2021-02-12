@@ -3,6 +3,7 @@ package com.example.taskmanager.data.repository.impl
 import com.example.taskmanager.data.AppPreference
 import com.example.taskmanager.data.api.WebServices
 import com.example.taskmanager.data.models.BaseModel
+import com.example.taskmanager.data.models.FilterTaskModel
 import com.example.taskmanager.data.models.TaskModel
 import com.example.taskmanager.data.repository.DashboardInterface
 import com.example.taskmanager.utils.ResultWrapper
@@ -36,6 +37,12 @@ class DashboardRepository(
     override suspend fun updateTask(taskModel: TaskModel): ResultWrapper<BaseModel<TaskModel>> {
         return apiCaller.safeApiCall(dispatcher) {
             api.updateTask(taskModel)
+        }
+    }
+
+    override suspend fun filterask(filterTaskModel: FilterTaskModel): ResultWrapper<BaseModel<ArrayList<TaskModel>>> {
+        return apiCaller.safeApiCall(dispatcher) {
+            api.filterTasks(filterTaskModel)
         }
     }
 
