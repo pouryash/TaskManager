@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.taskmanager.presentation.dashboard.home.TaskItemViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cv_task_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin_medium"
+        app:cardBackgroundColor="@color/gray100"
+        app:cardCornerRadius="@dimen/standard_margin_medium">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".9" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#FFC107"
+                android:gravity="center"
+                bind:status="@{viewModel.status}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/guideline"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.example.taskmanager.utils.FontFitTextView
+                    style="@style/Text.Medium_White"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/sp_15"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:rotation="-90"
+                    android:text="@{viewModel.status}" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_task_priority"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:paddingLeft="@dimen/standard_margin_small"
+                android:paddingRight="@dimen/standard_margin_small"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/tv_task_name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                bind:priority="@{viewModel.priority}" />
+
+            <TextView
+                android:id="@+id/tv_task_name"
+                style="@style/Text.Medium_Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:maxLines="1"
+                android:minLines="1"
+                android:textColor="@color/primary"
+                android:singleLine="true"
+                android:text="@{viewModel.taskName}"
+                android:paddingTop="@dimen/standard_margin_small"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/iv_task_priority"
+                app:layout_constraintRight_toRightOf="@id/guideline"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_task_description"
+                style="@style/Text.Medium_Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:maxLines="1"
+                android:minLines="1"
+                android:singleLine="true"
+                android:text="@{viewModel.description}"
+                android:paddingTop="@dimen/standard_margin_small"
+                android:textSize="@dimen/sp_15"
+                android:paddingLeft="@dimen/standard_margin_medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/tv_task_name"/>
+
+            <TextView
+                android:id="@+id/tv_task_reporter"
+                style="@style/Text.Medium_Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:maxLines="1"
+                android:minLines="1"
+                android:singleLine="true"
+                android:text="@{String.format(@string/reporter, viewModel.reporter)}"
+                android:paddingTop="@dimen/standard_margin_small"
+                android:textSize="@dimen/sp_15"
+                android:paddingLeft="@dimen/standard_margin_medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/tv_task_description"/>
+
+            <TextView
+                android:id="@+id/tv_task_date"
+                style="@style/Text.Medium_Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:maxLines="1"
+                android:minLines="1"
+                android:singleLine="true"
+                android:textColor="@color/primary"
+                android:text="@{String.format(@string/create_date, viewModel.createDate)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:paddingBottom="@dimen/standard_margin_medium"
+                android:paddingTop="@dimen/standard_margin_small"
+                android:textSize="@dimen/sp_15"
+                android:paddingLeft="@dimen/standard_margin_medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/tv_task_reporter"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/login_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ill_login"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/standard_margin_medium"
+            android:padding="@dimen/standard_margin_x"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_login_ill" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.35" />
+
+
+        <LinearLayout
+            android:id="@+id/arcView_login"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/arch_primirydark"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline">
+
+
+            <EditText
+                android:id="@+id/et_email_login"
+                style="@style/Text.Authentication_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin_medium"
+                android:background="@drawable/et_background_white"
+                app:drawableStartCompat="@drawable/ic_email_24"
+                android:gravity="left|center"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/gray500"
+                android:textSize="@dimen/sp_18" />
+
+            <EditText
+                android:id="@+id/et_password_login"
+                style="@style/Text.Authentication_Box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/et_background_white"
+                app:drawableStartCompat="@drawable/ic_lock_24"
+                android:gravity="left"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textColorHint="@color/gray500"
+                android:textSize="@dimen/sp_18" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_margin_x"
+                android:layout_marginTop="20dp"
+                android:textAllCaps="false"
+                android:layout_marginEnd="@dimen/standard_margin_x"
+                android:background="@drawable/bt_background_authentication"
+                android:text="@string/login"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/primary" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_link_to_register"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dip"
+                android:background="@null"
+                android:text="@string/btn_link_to_register"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_15" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

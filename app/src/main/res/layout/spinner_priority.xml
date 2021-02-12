@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/standard_margin_small"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/iv_priority_custom_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:paddingLeft="@dimen/standard_margin_small"
+        android:paddingRight="@dimen/standard_margin_small"
+        android:padding="@dimen/standard_margin_small"
+        tools:srcCompat="@drawable/ic_highest"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_label_custom_spinner"
+        style="@style/Text.Medium_Black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:singleLine="true"
+        android:minLines="1"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/standard_margin_small"
+        app:layout_constraintLeft_toRightOf="@id/iv_priority_custom_spinner"
+        app:layout_constraintTop_toTopOf="@id/iv_priority_custom_spinner"
+        app:layout_constraintBottom_toBottomOf="@id/iv_priority_custom_spinner"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="@dimen/sp_14"
+        tools:text="reporter" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

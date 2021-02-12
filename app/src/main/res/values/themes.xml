@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.TaskManager" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.TaskManager" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,5 +12,83 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="searchViewStyle">@style/MySearchViewStyle</item>
+
+        <item name="snackbarStyle">@style/MaterialSnackbarTheme</item>
+        <item name="snackbarButtonStyle">@style/MaterialSnackbarTextButtonTheme</item>
+        <item name="snackbarTextViewStyle">@style/MaterialSnackbarTextViewTheme</item>
     </style>
+
+    <style name="MaterialSnackbarTheme" parent="@style/Widget.MaterialComponents.Snackbar">
+        <item name="android:background">#000</item>
+    </style>
+
+    <style name="MaterialSnackbarTextButtonTheme" parent="@style/Widget.MaterialComponents.Button.TextButton.Snackbar">
+<!--        <item name="backgroundTint">#7777ff</item>-->
+        <item name="android:textColor">@color/colorRed</item>
+    </style>
+
+    <style name="MaterialSnackbarTextViewTheme" parent="@style/Widget.MaterialComponents.Snackbar.TextView">
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="MySearchViewStyle" parent="Widget.AppCompat.Light.SearchView">
+
+        <!-- Close button icon -->
+        <item name="closeIcon">@drawable/ic_close_24</item>
+        <item name="closeIconTint">@color/white</item>
+        <!-- Search button icon -->
+        <item name="searchHintIcon">@drawable/ic_search_24</item>
+        <item name="queryHint">search...</item>
+        <!-- Go/commit button icon -->
+        <!--    <item name="goIcon">...</item>-->
+        <!-- Voice search button icon -->
+        <!--    <item name="voiceIcon">...</item>-->
+        <!-- Commit icon shown in the query suggestion row -->
+        <!--    <item name="commitIcon">...</item>-->
+        <!-- Layout for query suggestion rows -->
+        <!--    <item name="suggestionRowLayout">...</item>-->
+    </style>
+
+
+    <style name="Text">
+        <item name="fontFamily">@font/iransans_medium</item>
+        <item name="android:textSize">@dimen/dimen_15</item>
+        <item name="android:gravity">right</item>
+    </style>
+
+    <style name="Text.Medium_White" parent="Text">
+        <item name="android:textSize">@dimen/dimen_20</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/iransans_medium</item>
+    </style>
+
+    <style name="Text.Medium_Black" parent="Text">
+        <item name="android:textSize">@dimen/dimen_20</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/iransans_medium</item>
+    </style>
+
+    <style name="Text.Large_Black" parent="Text">
+        <item name="android:textSize">@dimen/dimen_25</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/iransans_medium</item>
+    </style>
+
+    <style name="Text.Large_White" parent="Text">
+        <item name="android:textSize">@dimen/dimen_25</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/iransans_medium</item>
+    </style>
+
+    <style name="Text.Authentication_Box" parent="Text.Medium_Black">
+        <item name="singleLine">true</item>
+        <item name="android:drawablePadding">@dimen/standard_margin_small</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginStart">@dimen/standard_margin_x</item>
+        <item name="android:layout_marginEnd">@dimen/standard_margin_x</item>
+    </style>
+
 </resources>

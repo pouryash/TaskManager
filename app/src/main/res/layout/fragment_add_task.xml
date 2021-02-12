@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/add_task_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray200"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:id="@+id/lin_loading_dim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#A6000000"
+        android:gravity="center"
+        android:translationZ="100dp"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:id="@+id/pb_add_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_add_task"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/standard_margin_x"
+        android:text="@string/save"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/primary"
+        app:icon="@drawable/ic_done_black_24dp"
+        app:iconTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_cancel_add_task"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="@dimen/standard_margin_x"
+        android:background="?selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        app:tint="@color/black"
+        app:srcCompat="@drawable/ic_close_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/et_task_name_add_task"
+        style="@style/Text.Authentication_Box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_margin_x"
+        android:background="@drawable/et_background_white"
+        android:hint="add task name here..."
+        android:textSize="@dimen/sp_15"
+        android:inputType="textEmailAddress"
+        android:paddingStart="@dimen/standard_margin_x"
+        android:paddingEnd="@dimen/standard_margin_medium"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray500"
+        app:layout_constraintTop_toBottomOf="@id/fab_add_task" />
+
+    <EditText
+        android:id="@+id/et_description_add_task"
+        style="@style/Text.Authentication_Box"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/standard_margin_medium"
+        android:background="@drawable/et_background_white"
+        android:gravity="top|left"
+        android:textSize="@dimen/sp_15"
+        android:hint="@string/add_description"
+        android:inputType="textMultiLine"
+        android:paddingStart="@dimen/standard_margin_x"
+        android:paddingEnd="@dimen/standard_margin_medium"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray500"
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/et_task_name_add_task" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+
+    <TextView
+        android:id="@+id/tv_priority_add_task"
+        style="@style/Text.Medium_Black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="1"
+        android:minLines="1"
+        android:textStyle="bold"
+        android:paddingTop="@dimen/standard_margin_medium"
+        android:paddingBottom="@dimen/standard_margin_medium"
+        android:layout_marginLeft="@dimen/standard_margin_x"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline2"
+        android:layout_marginTop="@dimen/standard_margin_x"
+        android:textSize="16sp"
+        android:text="@string/priority" />
+
+    <Spinner
+        android:id="@+id/spinner_priority_add_task"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center"
+        app:backgroundTint="@color/black"
+        android:popupBackground="@color/gray300"
+        android:layout_marginLeft="@dimen/standard_margin_medium"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_priority_add_task"
+        app:layout_constraintTop_toTopOf="@+id/tv_priority_add_task"
+        app:layout_constraintLeft_toRightOf="@id/tv_priority_add_task"/>
+
+
+    <TextView
+        android:id="@+id/tv_assign_to_add_task"
+        style="@style/Text.Medium_Black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="1"
+        android:minLines="1"
+        android:textStyle="bold"
+        android:paddingTop="@dimen/standard_margin_medium"
+        android:paddingBottom="@dimen/standard_margin_medium"
+        android:layout_marginLeft="@dimen/standard_margin_x"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_priority_add_task"
+        android:layout_marginTop="@dimen/standard_margin_x"
+        android:textSize="16sp"
+        android:text="@string/assign_to" />
+
+    <Spinner
+        android:id="@+id/spinner_assign_to_add_task"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:popupBackground="@color/gray300"
+        app:backgroundTint="@color/black"
+        android:layout_marginLeft="@dimen/standard_margin_medium"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_assign_to_add_task"
+        app:layout_constraintTop_toTopOf="@+id/tv_assign_to_add_task"
+        app:layout_constraintLeft_toRightOf="@id/tv_assign_to_add_task"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
